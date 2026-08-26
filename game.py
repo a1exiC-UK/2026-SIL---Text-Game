@@ -3,7 +3,7 @@
 scenarios = [
     
     {
-        "text": "A narrow cave splits in two. Cold air drafts from the left. Which direction do you choose?", ## The scenario text presented to the player.
+        "text": "A narrow cave splits in two. Cold air drafts from the left. Which direction do you choose? ", ## The scenario text presented to the player.
         "correct": "left", ## Whether left or right is the correct decision
         "item": None, ## Whether there is an item to pick up
         "requires": None, ## Whether an item is required to proceed
@@ -12,7 +12,7 @@ scenarios = [
     },
     
     {
-        "text": "The passage forks again. To the right, something glints faintly on the ground. To the left, only shadow.",
+        "text": "The passage forks again. To the right, something glints faintly on the ground. To the left, only shadow. ",
         "correct": "right",
         "item": "torch",
         "requires": None,
@@ -21,7 +21,7 @@ scenarios = [
     },
     
     {
-        "text": "Ahead the tunnel splits around a jagged rock formation. The left branch is pitch black; the right seems to glow faintly with distant light.",
+        "text": "Ahead the tunnel splits around a jagged rock formation. The left branch is pitch black; the right seems to glow faintly with distant light. ",
         "correct": "left",
         "item": None,
         "requires": "torch",
@@ -30,7 +30,7 @@ scenarios = [
     },
     
     {
-        "text": "The corridor opens into a small chamber with two exits. Something metallic rests against the right wall.",
+        "text": "The corridor opens into a small chamber with two exits. Something metallic rests against the right wall. ",
         "correct": "right",
         "item": "sword",
         "requires": None,
@@ -39,16 +39,16 @@ scenarios = [
     },
     
     {
-        "text": "Snarling echoes come from both tunnels ahead. The right one sounds close and hostile.",
+        "text": "Snarling echoes come from both tunnels ahead. The right one sounds close and hostile, but the left feels more ominous. ",
         "correct": "right",
         "item": None,
         "requires": "sword",
-        "death": "Unarmed, you are overwhelmed by the creature guarding the path. Game over.",
-        "success": "You advance down the right tunnel and a snarling creature lunges from the dark. You meet it with your sword, driving it back with a few hard strikes, and press on down the now-clear passage."
+        "death": "You are overwhelmed by the large creature guarding the path. Game over.",
+        "success": "You advance down the right tunnel and a small snarling creature lunges from the dark. You meet it with your sword, driving it back with a few hard strikes, and press on down the now-clear passage."
     },
     
     {
-        "text": "Two doorways stand side by side. Scratched into the stone above the left one is a faded warning. A dull shape leans in the right doorway.",
+        "text": "Two doorways stand side by side. Scratched into the stone above the left one is a faded warning. A dull shield-like shape leans in the right doorway. ",
         "correct": "right",
         "item": "shield",
         "requires": None,
@@ -57,7 +57,7 @@ scenarios = [
     },
     
     {
-        "text": "The floor ahead splits into two ledges. The left ledge crumbles as loose rocks rain down from above.",
+        "text": "The floor ahead splits into two ledges. The left ledge crumbles as loose rocks rain down from above. ",
         "correct": "left",
         "item": None,
         "requires": "shield",
@@ -66,7 +66,7 @@ scenarios = [
     },
     
     {
-        "text": "A deep chasm blocks the way, splitting the path left and right. Coiled near the right edge lies a length of frayed cord.",
+        "text": "A deep chasm blocks the way, splitting the path left and right. Coiled near the right edge lies a length of frayed cord. ",
         "correct": "right",
         "item": "rope",
         "requires": None,
@@ -75,7 +75,7 @@ scenarios = [
     },
     
     {
-        "text": "The chasm narrows into two crossings. The left crossing is a crumbling stone bridge; the right is a wide gap with no bridge at all.",
+        "text": "The chasm narrows into two crossings. The left crossing is a crumbling stone bridge; the right is a wide gap with no bridge at all. ",
         "correct": "right",
         "item": None,
         "requires": "rope",
@@ -84,7 +84,7 @@ scenarios = [
     },
     
     {
-        "text": "Two final doors stand before you, bound in iron. A small brass object lies half-buried in the dirt to the left.",
+        "text": "Two final doors stand before you, bound in iron. A small brass object lies half-buried in the dirt to the left. ",
         "correct": "left",
         "item": "key",
         "requires": None,
@@ -93,7 +93,7 @@ scenarios = [
     },
     
     {
-        "text": "One final choice remains: a locked door on the left, or an unlocked door hanging ajar on the right, creaking in a draft.",
+        "text": "One final choice remains: a locked door on the left, or an unlocked door hanging ajar on the right, creaking in a draft. ",
         "correct": "left",
         "item": None,
         "requires": "key",
@@ -107,10 +107,12 @@ inventory = [] # Holds the items the player has collected. These items are neede
 
 is_alive = True # Checks if the player is alive. If the player dies, the game ends.
 
-input("Welcome to the dungeon. You can either go: \n- left \n- right \n- pick up item \n- view inventory \n- view available actions \n Type your choice and press enter.") # Gives the player the correct inputs
+input("Welcome to the dungeon. Your actions are: \n- left \n- right \n- pick up item \n- view inventory \n- view available actions \n Type your choice and press enter. Press any key to continue...") # Gives the player the correct inputs
 
 
 for scenario in scenarios: # Loops through each scenario in the list.
+    
+    picked_up = False
     
     if not is_alive: # If is_alive = False, game ends.
         print("You have failed to escape the dungeon. Restart to try again.")
@@ -120,14 +122,25 @@ for scenario in scenarios: # Loops through each scenario in the list.
         
         action = input(scenario["text"]) # Shows the scenario and asks the player for input.
         
-        if action == "pick up item" and scenario["item"]: # When the player chooses to pick up an item, and it gets added to the inventory.
-            inventory.append(scenario["item"])
-            print(f"You picked up a {scenario['item']}.")
+        if action == "pick up item": # When the player wants to pick up an item.
+            if picked_up: ## Checks if the item has already been picked up.
+                print("You have already picked up an item.")
+                continue
+            if scenario["item"]: ## If not, an item is added to the inventory.
+                inventory.append(scenario["item"])
+                print(f"You picked up a {scenario['item']}.")
+                picked_up = True
+            else: ## If no item
+                print("There is nothing to pick up here.")
             continue
         
         if action == "view inventory": # When the player wants to view their inventory.
-            for item in inventory:
-                print("Inventory: \n- %s" % item)
+            if inventory:
+                print("Inventory:")
+                for item in inventory:
+                    print("- %s" % item)
+            else:
+                print("Inventory: (empty)")
             continue
         
         if action == "view available actions": # When the player is unsure of what actions are available.
