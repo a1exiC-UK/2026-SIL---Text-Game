@@ -134,13 +134,10 @@ for scenario in scenarios: # Loops through each scenario in the list.
                 print("There is nothing to pick up here.")
             continue
         
-        if action == "view inventory": # When the player wants to view their inventory.
-            if inventory:
-                print("Inventory:")
-                for item in inventory:
-                    print("- %s" % item)
-            else:
-                print("Inventory: (empty)")
+        if action == "view inventory": # When the player wants to view their inventory
+            print("Inventory:")
+            for item in inventory:
+                print("- %s" % item)
             continue
         
         if action == "view available actions": # When the player is unsure of what actions are available.
@@ -164,3 +161,4 @@ for scenario in scenarios: # Loops through each scenario in the list.
         if action == scenario["correct"]: # If the player chooses the correct direction, they progress to the next stage.
             print(scenario["success"])
             break
+
