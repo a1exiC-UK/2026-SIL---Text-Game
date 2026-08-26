@@ -1,3 +1,5 @@
+from time import sleep # Sleep function to slow down text appearing.
+
 # A dictionary of scenarios for the game.
 
 scenarios = [
@@ -105,10 +107,14 @@ scenarios = [
 
 inventory = [] # Holds the items the player has collected. These items are needed to progress through certain stages.
 
+def show_actions(): # Defines the available actions
+    print("Available actions: \n- left \n- right \n- pick up item \n- view inventory \n- view available actions")
+
 is_alive = True # Checks if the player is alive. If the player dies, the game ends.
 
-input("Welcome to the dungeon. Your actions are: \n- left \n- right \n- pick up item \n- view inventory \n- view available actions \n Type your choice and press enter. Press any key to continue...") # Gives the player the correct inputs
-
+print("Welcome to the dungeon. Your aim is to escape alive by using items you collect on the way.")
+sleep(2)
+show_actions()
 
 for scenario in scenarios: # Loops through each scenario in the list.
     
@@ -143,11 +149,12 @@ for scenario in scenarios: # Loops through each scenario in the list.
             continue
         
         if action == "view available actions": # When the player is unsure of what actions are available.
-            print("Available actions: \n- left \n- right \n- pick up item \n- view inventory \n- view available actions")
+            show_actions()
             continue
         
         if action not in ["left", "right", "pick up item", "view inventory","view available actions"]: # If there is an unknown input, the player is prompted with the correct inputs.
-            print("Invalid choice. Please choose: \n- left \n- right \n- pick up item \n- view inventory \n- view available actions")
+            print("Invalid choice.")
+            show_actions()
             continue
         
         if scenario["requires"] and scenario["requires"] not in inventory: # If the player does not have the required item, they die.
