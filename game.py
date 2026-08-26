@@ -110,7 +110,7 @@ is_alive = True # Checks if the player is alive. If the player dies, the game en
 input("Welcome to the dungeon. You can either go: \n- left \n- right \n- pick up item \n- view inventory \n- view available actions \n Type your choice and press enter.") # Gives the player the correct inputs
 
 
-for scenario in scenarios: # Loopsthrough each scenario in the list.
+for scenario in scenarios: # Loops through each scenario in the list.
     
     if not is_alive: # If is_alive = False, game ends.
         print("You have failed to escape the dungeon. Restart to try again.")
