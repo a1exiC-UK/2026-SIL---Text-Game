@@ -1,6 +1,5 @@
 from time import sleep # Sleep function to slow down text appearing.
 import sys # System functions for a typing effect.
-import typing # Same as above, for typing effect.
 
 def show_actions(): # Defines the available actions.
     print("Available actions: \n- left \n- right \n- pick up item \n- view inventory \n- view available actions")
@@ -135,7 +134,7 @@ SCENARIOS = [
     
     {
         "descriptor": "In front of you, inbetween the two doors appears to be a silver box, resembling a vending machine. A small slot is visible on the front, and a faint inscription reads: 'Insert coin to proceed.'",
-        "speech": "Hello there. \nThank you. You may now proceed. \n *The screen appears to be making an arrow, pointing left.*\n"
+        "speech": "Hello there. \nThank you. You may now proceed. \n *The screen appears to be making an arrow, pointing left.*\n",
         "text": "Two doors stand before you, bound in iron. A small brass object lies half-buried in the dirt to the left. ",
         "correct": "left",
         "item": "key",
